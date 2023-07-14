@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minimal DFA</title>
+
+
+
+    <style id="css">
+        body {
+            font: 300 1.4rem 'Helvetica Neue', Helvetica;
+        }
+
+        .node circle {
+            stroke: #333;
+            fill: #fff;
+            stroke-width: 1px;
+        }
+
+        .node rect {
+            stroke: #333;
+            fill: aquamarine;
+            stroke-width: 1px;
+        }
+
+        .edgePath path {
+            stroke: #333;
+            fill: #333;
+            stroke-width: 2px;
+        }
+
+        svg {
+            border: 1px solid black;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .svg-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            height: 2em;
+            font-size: 1.2rem;
+        }
+
+        form input {
+            width: 90%;
+        }
+
+    </style>
+
+
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+    <script src="dagre-d3.js"></script>
+    <script src="NFA.js"></script>
+    <script src="DFA.js"></script>
+    <script src="script.js"></script>
+
+</head>
+<body>
+
+<h4>Minimal DFA from Regex</h4>
+
+<div style="font-size: 0.8rem">
+    Instructions:
+    <ul>
+        <li>A single dot (.) means concatenation. It can be omitted in the input. For example, <i>a.b</i> and <i>ab</i> both mean a and b concatenated </li>
+        <li>* means star operation. For example, <i>(ab)*</i> means ab repeated 0 or more times</li>
+        <li>+ means union. For example, <i>a+b</i> means a or b</li>
+        <li>Precedence in descending order: * . + (You can use parenthesis to change order of evaluation)</li>
+        <li><i>$</i> is used to indicate ε (empty string)</li>
+        <li>Spaces are not considered a symbol. So you can add spaces as many times as you want</li>
+    </ul>
+</div>
+
+<form onsubmit="event.preventDefault();draw(getDFA(document.getElementById('inputBox').value));">
+    <input id="inputBox" placeholder="($ + 1) (01)* ($+0)" spellcheck="false" autocomplete="off" >
+    <button>Draw DFA</button>
+</form>
+<div class="svg-wrapper">
+    <svg width=800 height=550><g/></svg>
+</div>
+</body>
+</html>
