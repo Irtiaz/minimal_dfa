@@ -88,7 +88,7 @@ class DFA {
     return true;
   }
 
-  splitPartition(partition) {
+  splitPartition(partition, partitions) {
     const nextIndices = [];
     let length = 1;
 
@@ -97,7 +97,7 @@ class DFA {
     for (let i = 1; i < partition.length; ++i) {
       let found = false;
       for (let j = 0; j < i; ++j) {
-        if (this.areCompatible(partition[i], partition[j], partition)) {
+        if (this.areCompatible(partition[i], partition[j], partitions)) {
 
           nextIndices[i] = nextIndices[j];
 
@@ -124,7 +124,7 @@ class DFA {
   getNextPartitions(partitions) {
     const nextPartitions = [];
     for (let partition of partitions) {
-      const next = this.splitPartition(partition);
+      const next = this.splitPartition(partition, partitions);
       nextPartitions.push(...next);
     }
     return nextPartitions;
